@@ -78,8 +78,15 @@ class DoubanDemoDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        return None
-
+        # 中间件加cookie
+        # request.cookies = {}
+        proxies = {
+            'http': 'http://127.0.0.1:7890',
+            'https': 'https://127.0.0.1:7890'
+            # 'socks'
+        }
+        # request.meta = {'proxy': proxies['http']}
+        pass
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
 

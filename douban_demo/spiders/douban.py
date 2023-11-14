@@ -15,7 +15,9 @@ class DoubanSpider(scrapy.Spider):
     # 方案2，重写 start_requests
     def start_requests(self) -> Iterable[Request]:
         for page in range(10):
-            yield Request(f'https://movie.douban.com/top250?start={25 * page}&filter=')
+            yield Request(
+                url=f'https://movie.douban.com/top250?start={25 * page}&filter=',
+            )
 
     def parse(self, response: HtmlResponse, **kwargs):
         sel = Selector(response)
