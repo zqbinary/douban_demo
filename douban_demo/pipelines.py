@@ -23,17 +23,19 @@ class DbPipeline:
         title = item.get('title', '')
         rank = item.get('rank', '')
         subject = item.get('subject', '')
-        self.data.append((title, rank, subject))
-        if 100 == len(self.data):
+        intro = item.get('intro', '')
+        duration = item.get('duration', '')
+        self.data.append((title, rank, subject, duration, intro))
+        if 10 == len(self.data):
             self._write_to_db()
         return item
 
     def _write_to_db(self):
-        # 准备一个容器比如100条，然后插入一次
+        # 准备一个容器比如10条，然后插入一次
         if not len(self.data):
             return
         self.cursor.executemany(
-            'insert into movie (title,rating,subject) values (%s,%s,%s)',
+            'insert into movie (title,rating,subject,duration,intro) values (%s,%s,%s,%s,%s)',
             self.data
         )
         # 这里后后面
